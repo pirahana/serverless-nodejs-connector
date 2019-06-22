@@ -1,0 +1,11 @@
+{
+  "name": "serverless-mobileflows-sample-connector",
+  "version": "1.0.0",
+  "description": "Sample code to start mobile flows connector development",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Makrand Sethi",
+  "license": "ISC"
+}

@@ -2,10 +2,22 @@
   "name": "serverless-mobileflows-sample-connector",
   "version": "1.0.0",
   "description": "Sample code to start mobile flows connector development",
-  "main": "handler.js",
+  "main": "connector.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Makrand Sethi",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.0",
+    "serverless-http": "^2.0.2",
+    "twitter": "^1.7.1",
+    "url": "^0.11.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "serverless-offline": "^5.4.2"
+  }
 }

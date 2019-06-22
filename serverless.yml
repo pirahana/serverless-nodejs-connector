@@ -11,19 +11,55 @@
 #
 # Happy Coding!
 
-service: serverless-mobileFlows-sample-connector # NOTE: update this with your service name
+service: Sample-MobileFlows-Serverless-Connector # NOTE: update this with your service name
+#app: your-app-name
+#tenant: your-tenant-name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+# List of plugins to be used
+plugins:
+  - serverless-offline
+
+custom:
+    authorizer:
+        arn: arn:aws:lambda:us-east-1:485793342887:function:SampleJwtAuthorizer
+        resultTtlInSeconds: 0
+        identitySource: method.request.header.Authorization
+        identityValidationExpression: '.*'
+
+
 provider:
   name: aws
   runtime: nodejs10.x
+  region: us-east-1
+  stage: dev
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
+
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
+
+  
+functions:
+  app:
+    handler: connector.server 
+    events: 
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /images/{any+}
+          method: GET
+          cors: true   
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+          authorizer: ${self:custom.authorizer}
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -54,9 +90,14 @@ provider:
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
-functions:
-  hello:
-    handler: handler.hello
+# functions:
+#   discover:
+#     handler: connector.discover
+#     events:
+#       - http:
+#           path: connector/discovery
+#           method: get
+#           cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
